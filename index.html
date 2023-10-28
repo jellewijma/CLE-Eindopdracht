@@ -12,35 +12,32 @@
 </head>
 
 <body>
-    <!-- Header section -->
-    <header class="bg-gray-900 text-white py-4">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <a href="#" class="text-xl font-bold">ADHD Clock</a>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#" class="hover:text-gray-400">Home</a></li>
-                    <li><a href="#" class="hover:text-gray-400">About us</a></li>
-                    <li><a href="#" class="hover:text-gray-400">History</a></li>
-                    <li><a href="#" class="hover:text-gray-400">Reviews</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
     <!-- Main section -->
-    <main class="container mx-auto w-screen h-[calc(100vh-60px)] flex justify-center">
-        <div class="grid grid-cols-4 h-full w-full gap-4 p-4">
-            <div class="row-span-2 col-span-2 bg-gray-900 h-full">
-                <p>test</p><a href=""></a>
+    <main class="w-screen h-screen flex justify-center">
+        <div class="grid grid-cols-4 h-full w-full">
+            <div class="row-span-2 col-span-2 h-full bg-cover bg-center flex justify-end items-start flex-col cursor-pointer"
+                style="background-image: url('./img/clock.png');">
+                <a href="./product.html"
+                    class="bg-blue-600 text-white py-4 px-8 mb-8 ml-8 w-fit rounded-full font-bold text-2xl ">QuackMate
+                </a>
             </div>
-            <div class="col-span-2 bg-blue-900">
-                <p>test2</p><a href=""></a>
+            <div class="col-span-2 h-full bg-cover bg-center flex justify-end items-start flex-col cursor-pointer"
+                style="background-image: url('./img/history.png');">
+                <a href="./history.html"
+                    class="bg-yellow-300 text-white py-4 px-8 mb-8 ml-8 w-fit rounded-full font-bold text-2xl ">History
+                </a>
             </div>
-            <div class="bg-green-900">
-                <p>test3</p><a href=""></a>
+            <div class="h-full bg-cover bg-center flex justify-end items-start flex-col cursor-pointer"
+                style="background-image: url('./img/us.png');">
+                <a href="./aboutus.html"
+                    class="bg-blue-600 text-white py-4 px-8 mb-8 ml-8 w-fit rounded-full font-bold text-2xl ">About Us
+                </a>
             </div>
-            <div class="bg-purple-900">
-                <p>test4</p><a href=""></a>
+            <div class="h-full bg-cover bg-center flex justify-end items-start flex-col cursor-pointer"
+                style="background-image: url('./img/review.png');">
+                <a href="./review.html"
+                    class="bg-blue-600 text-white py-4 px-8 mb-8 ml-8 w-fit rounded-full font-bold text-2xl ">Review
+                </a>
             </div>
         </div>
     </main>
