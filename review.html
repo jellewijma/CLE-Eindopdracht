@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QuackMate | Productpage</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body class="overflow-x-hidden">
     <header class="w-screen h-24 overflow-hidden">
-        <nav class="w-screen h-24 flex justify-between content-center">
+        <!-- <nav class="w-screen h-24 flex justify-between content-center">
             <img src="./img/QuackMate-logo.png" alt="QuackMate Logo" srcset="./img/QuackMate-logo.png" class="p-6">
             <div class="p-6 flex w-2/5 justify-between content-center">
                 <a href="./index.html" class="my-auto text-lg font-medium">Home</a>
@@ -19,9 +20,39 @@
                 <a href="./history.html" class="my-auto text-lg font-medium">History</a>
                 <a href="./review.html" class="my-auto text-lg font-medium">Review</a>
             </div>
+        </nav> -->
+        <nav class="w-screen h-24 flex justify-between content-center">
+            <img src="./img/QuackMate-logo.png" alt="QuackMate Logo" srcset="./img/QuackMate-logo.png" class="p-6">
+            <div class="p-6 flex w-2/5 justify-end content-center space-x-6 md:space-x-0 md:hidden">
+                <button id="menu-toggle" class="my-auto text-lg font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="menu" class="hidden p-6 md:flex w-2/5 justify-between content-center">
+                <a href="./index.html" class="my-auto text-lg font-medium">Home</a>
+                <a href="./product.html" class="my-auto text-lg font-medium">Product</a>
+                <a href="./aboutus.html" class="my-auto text-lg font-medium">About Us</a>
+                <a href="./history.html" class="my-auto text-lg font-medium">History</a>
+                <a href="./review.html" class="my-auto text-lg font-medium">Review</a>
+            </div>
+            <!-- mobile menu -->
+            <div id="menu-mobile"
+                class="hidden bg-white flex-col absolute p-6 w-screen h-screen justify-center content-center">
+                <button onclick="close1()" class="my-auto text-lg font-medium">close</button>
+                <a href="./index.html" class="m-auto text-lg font-medium" onclick="close1()">Home</a>
+                <a href="./product.html" class="m-auto text-lg font-medium" onclick="close1()">Product</a>
+                <a href="./aboutus.html" class="m-auto text-lg font-medium" onclick="close1()">About Us</a>
+                <a href="./history.html" class="m-auto text-lg font-medium" onclick="close1()">History</a>
+                <a href="./review.html" class="m-auto text-lg font-medium" onclick="close1()">Review</a>
+            </div>
         </nav>
+
     </header>
-    <main class="w-screen h-[calc(100vh-96px)] flex flex-col">
+    <main class="w-screen flex flex-col p-6" id="reviews">
         <div class="w-4/5 h-fit flex mx-auto my-4">
             <img src="./img/persone1.png" alt="" class="w-32 h-32">
             <div class="bg-[#275a9b] ml-4 p-4 w-full flex flex-col rounded-lg">
@@ -50,7 +81,271 @@
                 <p class="text-white">review</p>
             </div>
         </div>
+        <div class="w-4/5 flex mx-auto my-4 border-8 border-blue-600 h-32 rounded-lg">
+            <button id="show-form" class="bg-blue-300 text-white p-2 rounded-md hover:bg-blue-400 h-32 w-full">
+                Comment
+            </button>
+        </div>
+
     </main>
+
+    <!-- Modal for Adding a New Blog Post (Initially Hidden) -->
+    <div id="blog-post-modal"
+        class="hidden fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm z-50">
+        <div class="bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold">Schrijf een review</h2>
+            <div class="grid grid-cols-3 gap-4">
+                <!-- Character 1 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone1.png" class="hidden" required />
+                    <img src="./img/persone1.png" alt="Character 1" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 1
+                </label>
+
+                <!-- Character 2 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone2.png" class="hidden" />
+                    <img src="./img/persone2.png" alt="Character 2" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 2
+                </label>
+
+                <!-- Character 3 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone3.png" class="hidden" />
+                    <img src="./img/persone3.png" alt="Character 3" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 3
+                </label>
+
+                <!-- Character 4 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone4.png" class="hidden" />
+                    <img src="./img/persone4.png" alt="Character 4" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 4
+                </label>
+
+                <!-- Character 5 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone5.png" class="hidden" />
+                    <img src="./img/persone5.png" alt="Character 5" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 5
+                </label>
+
+                <!-- Character 6 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone6.png" class="hidden" />
+                    <img src="./img/persone6.png" alt="Character 6" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 6
+                </label>
+
+                <!-- Character 7 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone7.png" class="hidden" />
+                    <img src="./img/persone7.png" alt="Character 7" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 7
+                </label>
+
+                <!-- Character 8 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone8.png" class="hidden" />
+                    <img src="./img/persone8.png" alt="Character 8" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 8
+                </label>
+
+                <!-- Character 9 -->
+                <label class="flex flex-col items-center relative">
+                    <input type="radio" name="character" value="persone9.png" class="hidden" />
+                    <img src="./img/persone9.png" alt="Character 9" class="w-24 h-24 rounded-lg mb-2 cursor-pointer" />
+                    <div
+                        class="absolute top-0 left-0 w-24 h-24 rounded-lg border-4 border-blue-500 opacity-0 transition-opacity duration-300">
+                    </div>
+                    Character 9
+                </label>
+            </div>
+            <div class="mt-2">
+                <input type="text" id="name" class="w-full p-2 rounded-md border" placeholder="Naam" required>
+            </div>
+            <div class="mt-2">
+                <textarea id="review" class="w-full p-2 rounded-md border" rows="4" placeholder="Schrijf een review"
+                    required></textarea>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button id="close-modal"
+                    class="bg-red-600 text-white p-2 rounded-md hover:bg-red-700 w-1/2">Sluit</button>
+                <button id="submit-post"
+                    class="bg-blue-600 text-white p-2 rounded-md ml-2 hover:bg-blue-700 w-1/2">Verstuur</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const supabaseUrl = 'https://svulgzcimwemurolxfpr.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2dWxnemNpbXdlbXVyb2x4ZnByIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTg3OTA0NTksImV4cCI6MjAxNDM2NjQ1OX0.1ZTLrVjfP5HKmrUbHlmvVhcQhdD4UHnTtmuyyCf3MQQ';
+        const supabase_ = supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function fetchAndRenderBlogPosts() {
+            // Clear the existing content of the 'blog-posts' container
+            document.getElementById('reviews').innerHTML = '';
+            // add comment add button back
+            document.getElementById('reviews').innerHTML += `            
+                <div class="w-4/5 flex mx-auto my-4 border border-2 border-[#275a9b] border-dashed rounded-lg order-last">
+                    <button id="show-form" class="text-[#275a9b] rounded-md hover:bg-blue-100 h-32 w-full text-lg">
+                        Comment
+                    </button>
+                </div>
+            `;
+
+
+            const { data, error } = await supabase_
+                .from('reviews')
+                .select()
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching blog posts:', error);
+                return;
+            }
+
+            const blogPostsContainer = document.getElementById('reviews');
+
+            data.forEach((post) => {
+                console.log('Post:', post);
+                const postElement = document.createElement('div');
+                postElement.className = 'w-4/5 h-fit flex mx-auto my-4';
+
+                const image = document.createElement('img');
+                image.className = 'w-32 h-32';
+                image.src = './img/' + post.profile;
+                postElement.appendChild(image);
+
+                const contentContainer = document.createElement('div');
+                contentContainer.className = 'bg-[#275a9b] ml-4 p-4 w-full flex flex-col rounded-lg';
+
+                const title = document.createElement('h2');
+                title.className = 'font-medium text-xl text-white';
+                title.textContent = post.name;
+
+                const content = document.createElement('p');
+                content.className = 'text-white';
+                content.textContent = post.comment;
+
+                contentContainer.appendChild(title);
+                contentContainer.appendChild(content);
+                postElement.appendChild(contentContainer);
+                blogPostsContainer.appendChild(postElement);
+            });
+        }
+
+        fetchAndRenderBlogPosts();
+
+        // Show the modal when the "Add New Blog Post" button is clicked
+        document.getElementById('show-form').addEventListener('click', function () {
+            document.getElementById('blog-post-modal').classList.remove('hidden');
+        });
+
+        // Hide the modal when the "Close" button is clicked
+        document.getElementById('close-modal').addEventListener('click', function () {
+            document.getElementById('blog-post-modal').classList.add('hidden');
+        });
+
+        // Handle form submission to add a new blog post
+        document.getElementById('submit-post').addEventListener('click', async function () {
+            event.preventDefault();
+
+            // check if values are filled in
+            if (document.querySelector('input[name="character"]:checked') == null) {
+                alert("Selecteer een character");
+                return;
+            }
+            if (document.getElementById('name').value == "") {
+                alert("Vul een naam in");
+                return;
+            }
+            if (document.getElementById('review').value == "") {
+                alert("Vul een review in");
+                return;
+            }
+
+            // Get the values from the form
+            const profile = document.querySelector('input[name="character"]:checked').value;
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('review').value;
+
+            // Insert the new blog post into the 'blog_posts' table in Supabase
+            const { data, error } = await supabase_
+                .from('reviews')
+                .insert([
+                    {
+                        profile,
+                        name,
+                        comment,
+                    },
+                ]);
+
+            if (error) {
+                console.error('Error inserting blog post:', error);
+            } else {
+                console.log('New blog post added:', data);
+
+                // Clear the form and hide it after successful submission
+                document.getElementById('name').value = '';
+                document.getElementById('review').value = '';
+                document.getElementById('blog-post-modal').classList.add('hidden');
+
+                // Optionally, you can rerender the blog post list to display the new post.
+                fetchAndRenderBlogPosts();
+            }
+        });
+
+        // Add event listeners to update the selected style
+        const labels = document.querySelectorAll('.relative');
+        labels.forEach((label) => {
+            const input = label.querySelector('input[type="radio"]');
+            input.addEventListener('change', () => {
+                labels.forEach((otherLabel) => {
+                    otherLabel.querySelector('div').classList.remove('opacity-100');
+                });
+                label.querySelector('div').classList.add('opacity-100');
+            });
+        });
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu-mobile');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex')
+        });
+
+        function close1() {
+            console.log('clicked')
+            menu.classList.add('hidden');
+            menu.classList.remove('flex')
+        }
+    </script>
 </body>
 
 </html>

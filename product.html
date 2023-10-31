@@ -12,12 +12,31 @@
     <header class="w-screen h-24 overflow-hidden">
         <nav class="w-screen h-24 flex justify-between content-center">
             <img src="./img/QuackMate-logo.png" alt="QuackMate Logo" srcset="./img/QuackMate-logo.png" class="p-6">
-            <div class="p-6 flex w-2/5 justify-between content-center">
+            <div class="p-6 flex w-2/5 justify-end content-center space-x-6 md:space-x-0 md:hidden">
+                <button id="menu-toggle" class="my-auto text-lg font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="menu" class="hidden p-6 md:flex w-2/5 justify-between content-center">
                 <a href="./index.html" class="my-auto text-lg font-medium">Home</a>
                 <a href="./product.html" class="my-auto text-lg font-medium">Product</a>
                 <a href="./aboutus.html" class="my-auto text-lg font-medium">About Us</a>
                 <a href="./history.html" class="my-auto text-lg font-medium">History</a>
                 <a href="./review.html" class="my-auto text-lg font-medium">Review</a>
+            </div>
+            <!-- mobile menu -->
+            <div id="menu-mobile"
+                class="hidden bg-white flex-col absolute p-6 w-screen h-screen justify-center content-center">
+                <button onclick="close1()" class="my-auto text-lg font-medium">close</button>
+                <a href="./index.html" class="m-auto text-lg font-medium" onclick="close1()">Home</a>
+                <a href="./product.html" class="m-auto text-lg font-medium" onclick="close1()">Product</a>
+                <a href="./aboutus.html" class="m-auto text-lg font-medium" onclick="close1()">About Us</a>
+                <a href="./history.html" class="m-auto text-lg font-medium" onclick="close1()">History</a>
+                <a href="./review.html" class="m-auto text-lg font-medium" onclick="close1()">Review</a>
             </div>
         </nav>
     </header>
@@ -74,6 +93,21 @@
             </div>
         </section>
     </main>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu-mobile');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex')
+        });
+
+        function close1() {
+            console.log('clicked')
+            menu.classList.add('hidden');
+            menu.classList.remove('flex')
+        }
+    </script>
 </body>
 
 </html>
