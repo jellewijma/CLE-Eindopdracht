@@ -255,6 +255,7 @@
 
         // Show the modal when the "Add New Blog Post" button is clicked
         document.getElementById('show-form').addEventListener('click', function () {
+            console.log('clicked')
             document.getElementById('blog-post-modal').classList.remove('hidden');
         });
 
@@ -308,7 +309,8 @@
                 document.getElementById('blog-post-modal').classList.add('hidden');
 
                 // Optionally, you can rerender the blog post list to display the new post.
-                fetchAndRenderBlogPosts();
+                // fetchAndRenderBlogPosts();
+                location.reload();
             }
         });
 
